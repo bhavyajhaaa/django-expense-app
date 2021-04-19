@@ -23,9 +23,9 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #e3f2fd;">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: teal"> 
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">Expense Tracker</a>
+      <a class="navbar-brand" href="/">$$ Expense Tracker $$</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -35,21 +35,16 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link active" href=" {% url 'income-add' %}">Add Transaction</a>
+          </li>
 
-          </li>
           <li class="nav-item">
-            <a class="nav-link active" href="{% url 'income-list' %} ">Transactions</a>
+            <a class="nav-link active" href="{% url 'income-list' %} ">View Transactions</a>
+          </li>
 
-          </li>
           <li class="nav-item">
-            <a class="nav-link active" href=" {% url 'memo' %} ">Memo</a>
+            <a class="nav-link active" href=" {% url 'stats' %}  ">Graphs and Statistics</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" href=" {% url 'bookmark' %}  ">Bookmark</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href=" {% url 'stats' %}  ">Statestics</a>
-          </li>
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,6 +55,7 @@
               <li><a class="dropdown-item" href="{% url 'account_logout' %} ">Logout</a></li>
             </ul>
           </li>
+
         </ul>
       </div>
       {% else %}

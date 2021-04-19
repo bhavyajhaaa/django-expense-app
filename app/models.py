@@ -53,7 +53,7 @@ class Income(models.Model):
     )
 
     TYPE = (
-        ('Cash', 'Cash'),
+        ('Cash', 'Cash'), 
         ('Account', 'Account'),
         ('Card', 'Card'),
     )
@@ -86,7 +86,7 @@ class Transfer(models.Model):
 
    
 
-
+'''
 class Memo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(null=True)
@@ -101,6 +101,6 @@ class Memo(models.Model):
             "content":self.content,
             "date":self.date.strftime("%b %Od %Y, %OI:%M %p")
         }
-
+'''
    
     

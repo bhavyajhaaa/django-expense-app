@@ -149,13 +149,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata' #'UTC'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False #True 
 
 
 # Static files (CSS, JavaScript, Images)
@@ -173,6 +173,6 @@ AUTHENTICATION_BACKENDS = [
 ]
 django_heroku.settings(locals())
 
-HOST_URL = 'https://expense-tracker007.herokuapp.com'
+HOST_URL = 'https://expense-tracker007.herokuapp.com' # URL is 'expenses-tracker.herokuapp.com' and app is django-expense-app
 if DEBUG:
     HOST_URL = 'http://127.0.0.1:8000'

@@ -20,6 +20,9 @@ urlpatterns = [
     path('expense/<int:pk>/', ExpenseUpdate.as_view(), name='expense-update'),
     path('expense/<int:pk>/delete/', ExpenseDelete.as_view(), name='expense-delete'),
 
+    path("statistics/",views.stats, name="stats")
+]
+'''
     path('transfer/add/', TransferCreate.as_view(), name='transfer-add'),
     path('transfer/<int:pk>/', TransferUpdate.as_view(), name='transfer-update'),
     path('transfer/<int:pk>/delete/', TransferDelete.as_view(), name='transfer-delete'),
@@ -29,15 +32,13 @@ urlpatterns = [
     path('bookmarki/<int:id>',views.bookmarki,name='bookmarki'),
     path('bookmarke/<int:id>',views.bookmarke,name='bookmarke'),
     path('bookmarkt/<int:id>',views.bookmarkt,name='bookmarkt'),
-
-
-    path("statistics/",views.stats, name="stats"),
-
+'''
+    
+''' ,
     #Memo
     path("memo",login_required(views.memo) , name="memo"),
     path("memos",views.memoCreate , name="memoCreate"),
     path("memo/<int:id>",views.memoUpdate , name="memoUpdate"),
     path('memo/delete/<int:id>',views.delMemo,name="delMemo")
+'''
 
-
-]

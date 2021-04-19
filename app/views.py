@@ -72,7 +72,7 @@ class ExpenseList(ListView):
         queryset = super().get_queryset().filter(user=self.request.user)
         
         return queryset
-    
+   
 class TransferList(ListView):
     queryset = Transfer.objects.order_by('-date')
     context_object_name = 'transfer_list'
@@ -127,8 +127,8 @@ class TransferDelete(DeleteView):
 
 
 
-
-@csrf_exempt
+'''
+@csrf_exempt 
 def memoCreate(request):
     if request.method == "GET":
         memos = Memo.objects.filter(user=request.user)
@@ -264,7 +264,7 @@ def bookmarke(request,id):
         i.save()
 
     return HttpResponseRedirect(reverse('expense-list'))
-
+'''
 
 def trans_weekly(request):
     day = int(datetime.now().strftime("%d")) 
@@ -290,7 +290,7 @@ def trans_weekly(request):
     d = []
     # e = Expense.objects.filter(user=request.user).filter(date__range=(start_date,end_date)).order_by('-date')
     # i = Income.objects.filter(user=request.user).filter(date__range=(start_date,end_date)).order_by('-date')
-    t = Transfer.objects.filter(user=request.user).filter(date__range=(start_date,end_date)).order_by('-date')
+#    t = Transfer.objects.filter(user=request.user).filter(date__range=(start_date,end_date)).order_by('-date')
     
     ecost = []
     icost = []
@@ -336,7 +336,7 @@ def trans_weekly(request):
         'days':d,
         'expense':e,
         'income':i,
-        'transfer':t,
+#        'transfer':t,
         'expense_total':e.aggregate(Sum('cost')),
         'income_total':i.aggregate(Sum('cost')),
         'msg':'weekly'
@@ -382,7 +382,7 @@ def trans_monthly(request):
         month = m[0]
         e = Expense.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).order_by('-date')
         i = Income.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).order_by('-date')
-        t = Transfer.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).order_by('-date')
+#        t = Transfer.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).order_by('-date')
         l.append([m[1],e.aggregate(Sum('cost')),i.aggregate(Sum('cost'))])
 
     return render(request, "app/monthly.html",{
@@ -393,7 +393,7 @@ def trans_monthly(request):
         'year':year,
         'expense':e,
         'income':i,
-        'transfer':t,
+#        'transfer':t,
         'expense_total':ecost,
         'income_total':icost,
         'msg':'monthly'
@@ -456,7 +456,7 @@ def trans_daily(request):
         e = Expense.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).filter(date__day=day).order_by('-date')
         
         i = Income.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).filter(date__day=day).order_by('-date')
-        t = Transfer.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).filter(date__day=day).order_by('-date')
+##        t = Transfer.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).filter(date__day=day).order_by('-date')
         
         if day == 1 :
                 
@@ -818,7 +818,7 @@ def trans_daily(request):
     d= list(dict.fromkeys(d))
     ee = Expense.objects.filter(user=request.user).order_by('-date')
     ii = Income.objects.filter(user=request.user).order_by('-date')
-    tt = Transfer.objects.filter(user=request.user).order_by('-date')
+#    tt = Transfer.objects.filter(user=request.user).order_by('-date')
     
     
     return render(request, "app/daily.html",{
@@ -846,7 +846,7 @@ def trans_daily(request):
         'msg':'daily'
     })
 
-
+ 
 def stats(request):
 
     m=int(datetime.now().strftime("%m"))
@@ -854,7 +854,6 @@ def stats(request):
     year = int(datetime.now().strftime("%Y"))
     if request.method == 'POST':
         m=int(request.POST['month'])
-
         year=int(request.POST['year'])
         
     ebar = []
@@ -862,17 +861,17 @@ def stats(request):
     x1 = []
     balance = []
     months = [(1,'January'),
-                  (2,'February'),
-                  (3,'March'),
-                  (4,'April'),
-                  (5,'May'),
-                  (6,'June'),
-                  (7,'July'),
-                  (8,'August'),
-                  (9,'September'),
-                  (10,'October'),
-                  (11,'November'),
-                  (12,'December'),]
+              (2,'February'),
+              (3,'March'),
+              (4,'April'),
+              (5,'May'),
+              (6,'June'),
+              (7,'July'),
+              (8,'August'),
+              (9,'September'),
+              (10,'October'),
+              (11,'November'),
+              (12,'December'),]
     for mm in months:
         x1.append(mm[1])
         month = mm[0]

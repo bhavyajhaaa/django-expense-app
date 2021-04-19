@@ -1,34 +1,33 @@
 {% extends "app/base.html" %} {% load static %}
 {% block body %}
-<div class="row" style="margin-top: 40px;">
-    <div class="col-4">
+<div class="row" style="margin-top: 60px;">
+    <div class="col-3">
       <div class="list-group" >
         <a class="list-group-item active" href="{% url 'income-add' %}" >Income</a>
-        <a class="list-group-item " href="{% url 'expense-add' %}">Expense</a>
-        <a class="list-group-item " href="{% url 'transfer-add' %}">Transfer</a>
+        <a class="list-group-item " href="{% url 'expense-add' %}">Expenditure</a>
   
       </div>
     </div>
-    <div class="col-8">
+    <div class="col-6">
       <div id="nav-tabContent">
         <div id="list-Income">
-          <h2>Income</h2>
-          <form action="  " method="POST"  style="padding:20px">{% csrf_token %}
+          <h3>Add a new income source: </h3>
+          <form action="  " method="POST">{% csrf_token %}
 
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text">₹</span>
-                
-                
+                <span class="input-group-text">₹</span>                               
               </div>{{form.cost}}
               <span class="input-group-text">0.00</span>
             </div>
+
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <label class="input-group-text" for="inputGroupSelect01">{{form.account.label}} </label>
               </div>
               {{form.account}}
             </div>
+
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <label class="input-group-text" for="inputGroupSelect01">{{form.category.label}}</label>
@@ -43,7 +42,7 @@
             </div>
             
             
-            <input type="submit" class="btn btn-primary" value="Save">
+            <input type="submit" class="btn btn-outline-primary" value="Save">
           </form>
   
         </div>
@@ -66,9 +65,6 @@
 
     $('input').addClass('form-control');
     $('input').last().removeClass('form-control');
-
-
-
 
   })
 

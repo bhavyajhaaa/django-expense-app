@@ -3,35 +3,27 @@
 {% extends "app/base.html" %} {% load static %}
 {% block body %}
 <div class="row" style="margin-top: 40px;">
-    <div class="col-4">
-        
 
-
-        
+    <div class="col-5">    
         <form  method="POST"  style="padding:20px">{% csrf_token %}
 
             <div class="input-group mb-3 x">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">{{form.month.label}} </label>
+                <label class="input-group-text" for="inputGroupSelect01">{{form.month.label}}</label>
               </div>
               {{form.month}}
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">{{form.year.label}}</span>
                 {{form.year}}
-            </div>
-            
-        
-            <input type="submit" class="btn btn-primary" value="Get">
-            
-        </form>
-        
+            </div>                   
+            <input type="submit" class="btn btn-outline-primary" value="Get">            
+        </form>        
     </div>
     <div class="col-8">
 
             <div style="margin-left: 40px; font-size: 20px; margin-top: 40px;">
-  
-                <span class="badge bg-primary">{{date|date:"M Y"}}</span>
+                <span class="badge bg-info">Pie Charts for {{date|date:"M Y"}}</span>
             </div>
           <div class="row">
               
@@ -43,31 +35,21 @@
                   <canvas id="pie-chart2"></canvas>
                   <h5 class="text-success text-center" style="padding-top: 10px;">Income</h5>
               </div>
+
               <div style="margin-left: 40px; font-size: 20px; margin-top: 40px;">
-  
-                <span class="badge bg-primary">{{date|date:"Y"}}</span>
+                <span class="badge bg-info">Year {{date|date:"Y"}}</span>
                 </div>
+
               <div  style="height: 370px; width: 75%; margin-top: 40px; margin-left: 40px;">
                 <canvas id="linechart" ></canvas>
               </div>
               <div id="container" style="width: 75%; margin-top: 40px; margin-left: 40px;">
                 <canvas id="canvas"></canvas>
               </div>
-          
           </div>
-          
-          
-        
-        
-
     
     </div>
 </div>
-
-
-
-
-
 
 
 
@@ -78,14 +60,13 @@
       type: 'pie',
       data: {
         datasets: [{
+          labels: {{ labels1|safe }},
           data: {{ data1|safe }},
           backgroundColor: [
           '#808080','#00ff00', '#A9A9A9','#601230','#696969','#ff0000',  '#C0C0C0', '#D3D3D3','#ff00ff','#000080','#008000','#ffff00'
-            
           ],
-          label: 'Expense'
-        }],
-        labels: {{ labels1|safe }}
+          label: 'Expenditure'
+        }]
       },
       options: {
         responsive: true
@@ -96,13 +77,28 @@
       type: 'pie',
       data: {
         datasets: [{
+          labels: {{ labels2|safe }},
           data: {{ data2|safe }},
+          //backgroundColor: ['#2012300', '#ff0000', '#00ff00', '#C0C0C0', '#00ffff','#ff00ff'],
           backgroundColor: [
-          '#2012300', '#ff0000', '#00ff00', '#C0C0C0', '#00ffff','#ff00ff'
-          ],
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
           label: 'Income'
-        }],
-        labels: {{ labels2|safe }}
+        }] 
       },
       options: {
         responsive: true
@@ -139,7 +135,7 @@ var chartOptions = {
   },
   title: {
     display: true,
-    text: "Income Expense per Month {{ date|date:'Y'}}"
+    text: "Monthly Income and Expenditure for the year {{ date|date:'Y'}}"
   },
   scales: {
     yAxes: [{
@@ -200,7 +196,7 @@ var chartOptions = {
         
           ]},
           options: {
-            responsive: true, // Instruct chart js to respond nicely.
+            responsive: true, 
             maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
           }
         });

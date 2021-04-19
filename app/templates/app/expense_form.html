@@ -1,20 +1,19 @@
 {% extends "app/base.html" %} {% load static %}
 {% block body %}
-<div class="row" style="margin-top: 40px;">
-    <div class="col-4">
+<div class="row" style="margin-top: 60px;">
+    <div class="col-3">
       <div class="list-group" >
         <a class="list-group-item " href="{% url 'income-add' %}" >Income</a>
-        <a class="list-group-item active" href="{% url 'expense-add' %}">Expense</a>
-        <a class="list-group-item " href="{% url 'transfer-add' %}">Transfer</a>
+        <a class="list-group-item active" href="{% url 'expense-add' %}">Expenditure</a>
   
       </div>
     </div>
-    <div class="col-8">
+    <div class="col-6">
       <div id="nav-tabContent">
         <div id="list-Expense">
 
-          <h2>Expense</h2>
-          <form action=" " method="POST" id="expense" style="padding:20px">{% csrf_token %}
+          <h3>Add a new expenditure : </h3>
+          <form action=" " method="POST" id="expense">{% csrf_token %}
 
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -39,15 +38,14 @@
               {{form.category}}
               
             </div>
-            
-            
+                        
             <div class="form-group mb-3">
               <label for="exampleFormControlTextarea1">{{form.message.label}}</label>
               {{form.message}}
             </div>
 
 
-            <input type="submit" class="btn btn-primary" value="Save">
+            <input type="submit" class="btn btn-outline-primary" value="Save">
             
           </form>
 

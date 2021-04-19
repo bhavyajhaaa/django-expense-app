@@ -13,11 +13,10 @@
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <style>
     body {
-      background-color: #c79901;
+      background-color: black;
     }
 
     .form-container {
-      /* margin: 100px auto; */
       padding: 30px;
       max-width: 350px;
       background: rgb(255, 255, 255);
@@ -27,7 +26,6 @@
     .container {
       margin: 100px auto;
       max-width: 350px;
-      /* background: white; */
       box-sizing: border-box;
     }
 
@@ -89,7 +87,6 @@
       margin: 20px;
       text-align: center;
       color: white;
-      /* font-weight: bold; */
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
 
@@ -115,8 +112,6 @@
       background-repeat: no-repeat;
       background-position: 12px 11px;
 
-
-
     }
 
     .line {
@@ -125,7 +120,6 @@
       justify-content: center;
       align-items: center;
       margin-bottom: 1rem;
-
 
     }
 
@@ -150,8 +144,7 @@
   <div class="container">
     <div class="form-container">
       <div class="head">
-        <h3>Sign in</h3>
-
+        <h3>Login</h3>
 
 
       </div>
@@ -159,14 +152,13 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
+
+        <button type="submit">Login</button>
         <a class="button secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>
 
-
-        <button type="submit">sign in</button>
       </form>
       <div class="footer">
 
@@ -181,18 +173,16 @@
       {% if socialaccount_providers %}
 
       <button type="button" class="login-with-google-btn">
-        <a style="text-decoration: none; color: gray;" href="{% provider_login_url 'google' %}">Sign in with Google</a>
+        <a style="text-decoration: none; color: gray;" href="{% provider_login_url 'google' %}">Sign in with a Google account</a>
 
       </button>
-
-
 
       {% endif %}
 
     </div>
 
 
-    <div class="signup"> Don't have a account ? <a style=" color:whitesmoke;" href="{{ signup_url }}">sign up</a> first.
+    <div class="signup"> Don't have an account ? <a style=" color:whitesmoke;" href="{{ signup_url }}">Sign up</a> first!<br>
     </div>
   </div>
 </body>

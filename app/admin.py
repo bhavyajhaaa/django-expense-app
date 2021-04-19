@@ -15,13 +15,13 @@ class TransferAdmin(admin.ModelAdmin):
     
     list_display = ('id','cost','From','to','date','message','bookmark','user')
     list_editable = ('cost','From','to','message','bookmark','user')
-
+'''
 class MemoAdmin(admin.ModelAdmin):
     
     list_display = ('id','title','content','date','user')
     list_editable = ('title','content','date','user')
-
+'''
 admin.site.register(Income,IncomeAdmin)
 admin.site.register(Transfer,TransferAdmin)
 admin.site.register(Expense,ExpenseAdmin)
-admin.site.register(Memo,MemoAdmin)
+#admin.site.register(Memo,MemoAdmin)

@@ -1,4 +1,5 @@
 import json
+from json import dumps #to pass json data1 to stats js
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
@@ -127,145 +128,6 @@ class TransferDelete(DeleteView):
 
 
 
-'''
-@csrf_exempt 
-def memoCreate(request):
-    if request.method == "GET":
-        memos = Memo.objects.filter(user=request.user)
-        return JsonResponse([memo.serialize(memo.id) for memo in memos],safe=False)
-
-    if request.method != "POST":
-        return JsonResponse({"error": "POST request required."}, status=400)
-
-    
-    data = json.loads(request.body)
-    
-
-    # Get contents of memo
-    title = data.get("title", "")
-    content = data.get("content", "")
-
-    memo = Memo(
-        user=request.user,
-        title=title,
-        content=content,
-        date=datetime.now()
-    )
-    memo.save()
-    print(f'id:{memo.id}')
-    
-
-    return JsonResponse(memo.serialize(memo.id))
-
-
-# @csrf_exempt
-def memo(request):
-    memos  = Memo.objects.filter(user=request.user)
-    print(memos)
-
-    return render(request,"app/memo.html",{
-        'memos':memos
-    })
-
-
-@csrf_exempt
-def memoUpdate(request,id):
-    try:
-        memo = Memo.objects.get(user=request.user,id=id)
-    except Memo.DoesNotExist:
-        return JsonResponse({"error": "Memo not found."}, status=404)
-
-    # Return email contents
-    
-    # Update whether email is read or should be archived
-    if request.method == "PUT":
-        data = json.loads(request.body)
-        if data.get("title") is not None:
-            memo.title = data["title"]
-        if data.get("content") is not None:
-            memo.content = data["content"]
-        memo.save()
-        return JsonResponse({
-            "message": "memo updated."
-        }, status=400)
-
-
-    # memo must be via GET or PUT
-    else:
-        return JsonResponse({
-            "error": "GET or PUT request required."
-        }, status=400)
-
-
-@csrf_exempt
-def delMemo(request,id):
-    memo = Memo.objects.get(id=id)
-    memo.delete()
-
-    memos = Memo.objects.filter(user=request.user)
-    print(memos)
-    c = [m.serialize(m.id) for m in memos]
-    print(c)
-
-    return JsonResponse(c,safe=False)
-
-def bookmark(request):
-        
-    i  = Income.objects.filter(user=request.user).filter(bookmark=True).order_by('-date')
-    e  = Expense.objects.filter(user=request.user).filter(bookmark=True).order_by('-date')
-    t  = Transfer.objects.filter(user=request.user).filter(bookmark=True).order_by('-date')
-    ii  = Income.objects.filter(user=request.user).order_by('-date')
-    ee  = Expense.objects.filter(user=request.user).order_by('-date')
-    tt  = Transfer.objects.filter(user=request.user).order_by('-date')
-    
-    return render(request,"app/bookmark.html",{
-        'income':ii,
-        'expense':ee,
-        'transfer':tt,
-        'trans':chain(i,e,t)
-        
-    })
-
-
-def bookmarki(request,id):
-
-    i = Income.objects.get(id=id)
-    if i.bookmark == True:
-        i.bookmark = False
-        i.save()
-    else:
-        i.bookmark = True
-        i.save()
-
-    
-   
-
-    return HttpResponseRedirect(reverse('income-list'))
-
-
-def bookmarkt(request,id):
-    i = Transfer.objects.get(id=id)
-    if i.bookmark == True:
-        i.bookmark = False
-        i.save()
-    else:
-        i.bookmark = True
-        i.save()
-
-    return HttpResponseRedirect(reverse('transfer-list'))
-
-def bookmarke(request,id):
-    i = Expense.objects.get(id=id)
-    if i.bookmark == True:
-        i.bookmark = False
-        i.save()
-    else:
-        i.bookmark = True
-        i.save()
-
-    return HttpResponseRedirect(reverse('expense-list'))
-'''
-
 def trans_weekly(request):
     day = int(datetime.now().strftime("%d")) 
     month = int(datetime.now().strftime("%m"))
@@ -290,7 +152,7 @@ def trans_weekly(request):
     d = []
     # e = Expense.objects.filter(user=request.user).filter(date__range=(start_date,end_date)).order_by('-date')
     # i = Income.objects.filter(user=request.user).filter(date__range=(start_date,end_date)).order_by('-date')
-#    t = Transfer.objects.filter(user=request.user).filter(date__range=(start_date,end_date)).order_by('-date')
+    t = Transfer.objects.filter(user=request.user).filter(date__range=(start_date,end_date)).order_by('-date')
     
     ecost = []
     icost = []
@@ -336,7 +198,7 @@ def trans_weekly(request):
         'days':d,
         'expense':e,
         'income':i,
-#        'transfer':t,
+        'transfer':t,
         'expense_total':e.aggregate(Sum('cost')),
         'income_total':i.aggregate(Sum('cost')),
         'msg':'weekly'
@@ -382,7 +244,7 @@ def trans_monthly(request):
         month = m[0]
         e = Expense.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).order_by('-date')
         i = Income.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).order_by('-date')
-#        t = Transfer.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).order_by('-date')
+        t = Transfer.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).order_by('-date')
         l.append([m[1],e.aggregate(Sum('cost')),i.aggregate(Sum('cost'))])
 
     return render(request, "app/monthly.html",{
@@ -393,7 +255,7 @@ def trans_monthly(request):
         'year':year,
         'expense':e,
         'income':i,
-#        'transfer':t,
+        'transfer':t,
         'expense_total':ecost,
         'income_total':icost,
         'msg':'monthly'
@@ -456,7 +318,7 @@ def trans_daily(request):
         e = Expense.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).filter(date__day=day).order_by('-date')
         
         i = Income.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).filter(date__day=day).order_by('-date')
-##        t = Transfer.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).filter(date__day=day).order_by('-date')
+        t = Transfer.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month).filter(date__day=day).order_by('-date')
         
         if day == 1 :
                 
@@ -818,7 +680,7 @@ def trans_daily(request):
     d= list(dict.fromkeys(d))
     ee = Expense.objects.filter(user=request.user).order_by('-date')
     ii = Income.objects.filter(user=request.user).order_by('-date')
-#    tt = Transfer.objects.filter(user=request.user).order_by('-date')
+    tt = Transfer.objects.filter(user=request.user).order_by('-date')
     
     
     return render(request, "app/daily.html",{
@@ -894,8 +756,8 @@ def stats(request):
     month = m
     queryset1 = Expense.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month)
     queryset2 = Income.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month)
-    incomecat = ['Allowance','Salary','Petty cash','Bonus','Account','Other']
-    expensecat = ['Food','Social Life','Self-development','Transportation','Culture','Household','Apparel','Beauty','Health','Education','Gift','others']
+    incomecat = ['Allowance','Salary','Cash','Bonus','Account','Other']
+    expensecat = ['Food','Social Life','Self-care','Transportation','Culture','Household','Clothes','Beauty','Health','Education','Gift','Tax', 'Stocks','Other']
     for x in expensecat :
         cat1 = queryset1.filter(category=x).aggregate(Sum('cost'))['cost__sum']
         
@@ -915,23 +777,18 @@ def stats(request):
             data2.append(cat1)
             labels2.append(x)
             
-        
-        
-
     print(data1)
+
     return render(request, "app/stats.html",{
         'form':MyForm(),
         'date':date(year,month,2),
-        'labels1':labels1,
-        'data1':data1,
+        'labels1':labels1,         
+        'data1':data1,         
         'labels2':labels2,
         'data2':data2,
         'months':x1,
         'mm':months,
         'bar1':ebar,
         'bar2':ibar,
-        'linedata':balance
-        
-
-        
+        'linedata':balance        
     })

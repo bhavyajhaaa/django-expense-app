@@ -2,32 +2,28 @@ from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
-# Create your models here.
-
-
 
 class Expense(models.Model):
     CATEGORY = (
         ('Food', 'Food'),
-        ('Social Life', 'Social Life'),
-        ('Self-development', 'Self-development'),
+        ('Going out/Fun', 'Going out/Fun'),
+        ('Self-care', 'Self-care'),
         ('Transportation', 'Transportation'),
         ('Culture', 'Culture'),
         ('Household', 'Household'),
-        ('Apparel', 'Apparel'),
+        ('Clothes', 'Clothes'),
         ('Beauty', 'Beauty'),
         ('Health', 'Health'),
         ('Education', 'Education'),
-
         ('Gift', 'Gift'),
-        ('others', 'others'),
-        
-
+        ('Tax','Tax'),
+        ('Stocks','Stocks'),
+        ('Other', 'Other'),
     )
     TYPE = (
         ('Cash', 'Cash'),
         ('Account', 'Account'),
-        ('Card', 'Card'),
+ #       ('Card', 'Card'),
     )
 
     cost = models.FloatField(blank=True)
@@ -35,7 +31,7 @@ class Expense(models.Model):
     category = models.CharField(max_length=100, choices=CATEGORY)
     date = models.DateTimeField(auto_now_add=True)
     message = models.CharField(max_length=100)
-    bookmark = models.BooleanField(default=False)
+#    bookmark = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     
@@ -44,10 +40,9 @@ class Income(models.Model):
     CATEGORY = (
         ('Allowance', 'Allowance'),
         ('Salary', 'Salary'),
-        ('Self-development', 'Self-development'),
-        ('Petty cash', 'Petty cash'),
+        ('Cash', 'Cash'),
         ('Bonus', 'Bonus'),
-        ('Account', 'Account'),
+        ('Account', 'Through Account'),
         ('Other', 'Other'),
         
     )
@@ -55,7 +50,7 @@ class Income(models.Model):
     TYPE = (
         ('Cash', 'Cash'), 
         ('Account', 'Account'),
-        ('Card', 'Card'),
+#        ('Card', 'Card'),
     )
 
 
@@ -64,7 +59,7 @@ class Income(models.Model):
     category = models.CharField(max_length=100, choices=CATEGORY)
     date = models.DateTimeField(auto_now_add=True)
     message = models.CharField(max_length=100)
-    bookmark = models.BooleanField(default=False)
+ #   bookmark = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     
@@ -73,7 +68,7 @@ class Transfer(models.Model):
     TYPE = (
         ('Cash', 'Cash'),
         ('Account', 'Account'),
-        ('Card', 'Card'),
+#        ('Card', 'Card'),
     )
 
     cost = models.FloatField(blank=True)
@@ -81,7 +76,7 @@ class Transfer(models.Model):
     to = models.CharField(max_length=100, choices=TYPE)
     date = models.DateTimeField(auto_now_add=True)
     message = models.CharField(max_length=100)
-    bookmark = models.BooleanField(default=False)
+ #   bookmark = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
    

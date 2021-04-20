@@ -145,17 +145,16 @@ def trans_weekly(request):
     else:
         day = 28
     
-    # end_date - timedelta(days=7)
     end_date =  date(year,month,day)
     start_date =  date(year,month,day)
     
     d = []
-    # e = Expense.objects.filter(user=request.user).filter(date__range=(start_date,end_date)).order_by('-date')
-    # i = Income.objects.filter(user=request.user).filter(date__range=(start_date,end_date)).order_by('-date')
+  #  e = Expense.objects.filter(user=request.user).filter(date__range=(start_date,end_date)).order_by('-date') 
+  #  i = Income.objects.filter(user=request.user).filter(date__range=(start_date,end_date)).order_by('-date')
     t = Transfer.objects.filter(user=request.user).filter(date__range=(start_date,end_date)).order_by('-date')
     
-    ecost = []
-    icost = []
+ #   ecost = []
+ #   icost = []
     while day>7:
         end_date =  date(year,month,day)
         start_date =  date(year,month,day-7)
@@ -174,8 +173,9 @@ def trans_weekly(request):
         print(e.aggregate(Sum('cost')))
         print(i.aggregate(Sum('cost')))
         d.append([day,1,e.aggregate(Sum('cost')),i.aggregate(Sum('cost'))])
-
     
+    e = Expense.objects.filter(user=request.user).filter(date__year=year).order_by('-date') 
+    i = Income.objects.filter(user=request.user).filter(date__year=year).order_by('-date')
     
 
     return render(request, "app/weekly.html",{
@@ -216,8 +216,6 @@ def trans_monthly(request):
         month=int(request.POST['month'])
         year=int(request.POST['year'])
         
-
-
 
     e = Expense.objects.filter(user=request.user).filter(date__year=year).order_by('-date')
     i = Income.objects.filter(user=request.user).filter(date__year=year).order_by('-date')
@@ -671,10 +669,7 @@ def trans_daily(request):
                 x30.append(str(date(year,month,day).strftime("%A")))
                 x30.append(str(bool(e or t or i)))
                 x30.append(chain(e,i,t))
-        
-        
-
-        
+                
         d.append(day)
         day = day -1
     d= list(dict.fromkeys(d))
@@ -757,7 +752,7 @@ def stats(request):
     queryset1 = Expense.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month)
     queryset2 = Income.objects.filter(user=request.user).filter(date__year=year).filter(date__month=month)
     incomecat = ['Allowance','Salary','Cash','Bonus','Account','Other']
-    expensecat = ['Food','Social Life','Self-care','Transportation','Culture','Household','Clothes','Beauty','Health','Education','Gift','Tax', 'Stocks','Other']
+    expensecat = ['Food','Fun','Self-care','Transportation','Culture','Household','Clothes','Beauty','Health','Education','Gift','Tax', 'Stocks','Other']
     for x in expensecat :
         cat1 = queryset1.filter(category=x).aggregate(Sum('cost'))['cost__sum']
         

@@ -23,7 +23,6 @@
                 <th>Date</th>
                 <th>Action</th>
                 <th>Action</th>
-                <th>Bookmark</th>
             </tr>
         </thead>
         <tbody>
@@ -41,19 +40,7 @@
                 <td>
                     <a  href="{% url 'transfer-delete' pk=x.id %}">Delete</a>
                 </td>
-                <td>
-                    {% if x.bookmark %}
-                    <a href="{% url 'bookmarkt' id=x.id %}">
-                        <img style="height: 20px;width: 20px;" src="{% static 'app/book.png' %}" alt="">
-                    </a>
-                    {% else %}
-                    <a href="{% url 'bookmarkt' id=x.id %}">
-                        <img style="height: 20px;width: 20px;" src="{% static 'app/unbook.png' %}" alt="">
-
-                    </a>
-                    
-                    {% endif %}
-                </td>
+                
             </tr>
 
             {% endfor %}
@@ -69,7 +56,6 @@
                 <th>Date</th>
                 <th>Action</th>
                 <th>Action</th>
-                <th>Bookmark</th>
             </tr>
         </tfoot>
     </table>

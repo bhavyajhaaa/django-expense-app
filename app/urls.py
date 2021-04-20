@@ -26,19 +26,6 @@ urlpatterns = [
     path('transfer/add/', TransferCreate.as_view(), name='transfer-add'),
     path('transfer/<int:pk>/', TransferUpdate.as_view(), name='transfer-update'),
     path('transfer/<int:pk>/delete/', TransferDelete.as_view(), name='transfer-delete'),
-
-
-    path('bookmark/',views.bookmark,name='bookmark'),
-    path('bookmarki/<int:id>',views.bookmarki,name='bookmarki'),
-    path('bookmarke/<int:id>',views.bookmarke,name='bookmarke'),
-    path('bookmarkt/<int:id>',views.bookmarkt,name='bookmarkt'),
 '''
     
-''' ,
-    #Memo
-    path("memo",login_required(views.memo) , name="memo"),
-    path("memos",views.memoCreate , name="memoCreate"),
-    path("memo/<int:id>",views.memoUpdate , name="memoUpdate"),
-    path('memo/delete/<int:id>',views.delMemo,name="delMemo")
-'''
 

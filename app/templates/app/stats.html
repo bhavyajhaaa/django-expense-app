@@ -137,8 +137,8 @@ var myLineChartbud;
     var config1 = {
       type: 'pie',
       data: {
+        labels: {{labels1|safe}},
         datasets: [{
-          labels: {{labels1|safe}},
           data: {{data1|safe}}, //"{{ data1|safe }}",
           backgroundColor: ['#53cfda','eff2e6','#ff7994','#ffc900','#1f3d51','#ffed00','#dee500',
           '#808080','#d2e9e1','#a2aaac','#c06c84','#b6dcb6','#355c7d','#ea4630'         
@@ -150,14 +150,13 @@ var myLineChartbud;
         responsive: true
       }
     };
-
+   
     var config2 = {
       type: 'pie',
       data: {
+        labels: {{labels2|safe}},
         datasets: [{
-          labels: {{labels2|safe}},
           data: {{data2|safe}},
-          //backgroundColor: ['#2012300', '#ff0000', '#00ff00', '#C0C0C0', '#00ffff','#ff00ff'],
           backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
@@ -251,14 +250,6 @@ var chartOptions = {
             fill: false,
             borderColor: '#008081', // Add custom color border (Line)
             backgroundColor: '#008081', // Add custom color background (Points and Fill)
-            borderWidth: 1 // Specify bar border width
-            },
-            {
-            label: `Budget in rupees`, // Name the series
-            data: budg, //[100,100,100,100,200,100,100,100,100,100,300,100], // Specify the data values array
-            fill: false,
-            borderColor: '#000000', // Add custom color border (Line)
-            backgroundColor: '#000000', // Add custom color background (Points and Fill)
             borderWidth: 1 // Specify bar border width
             },
             {

@@ -2711,19 +2711,7 @@
         <div style="width: 15%;">
             {{ t.date|date:"D, d M, Y" }}
         </div>
-        <div class="text-center" style="width: 5%;">
-            {% if t.bookmark %}
-            <a href="{% url 'bookmarki' pk=t.id %}">
-                <img style="height: 20px;width: 20px;" src="{% static 'myapp/book.png' %}" alt="">
-            </a>
-            {% else %}
-            <a href="{% url 'bookmarki' pk=t.id %}">
-                <img style="height: 20px;width: 20px;" src="{% static 'myapp/unbook.png' %}" alt="">
 
-            </a>
-            
-            {% endif %}
-        </div>
         {% endif %}
 
         {% if t in expense %}
@@ -2741,20 +2729,7 @@
         </div>
         <div style="width: 15%;">
             {{t.date|date:"D, d M, Y" }}
-        </div>
-        <div class="text-center" style="width: 5%;">
-            {% if t.bookmark %}
-            <a href="{% url 'bookmarke' pk=t.id %}">
-                <img style="height: 20px;width: 20px;" src="{% static 'myapp/book.png' %}" alt="">
-            </a>
-            {% else %}
-            <a href="{% url 'bookmarke' pk=t.id %}">
-                <img style="height: 20px;width: 20px;" src="{% static 'myapp/unbook.png' %}" alt="">
-
-            </a>
-            
-            {% endif %}
-        </div>
+        </div>       
         {% endif %}
 
         {% if t in transfer %}
@@ -2773,21 +2748,7 @@
         </div>
         <div style="width: 15%;">
             {{ t.date|date:"D, d M, Y" }}
-        </div>
-        <div class="text-center" style="width: 5%;">
-            {% if t.bookmark %}
-            <a href="{% url 'bookmarkt' pk=t.id %}">
-                <img style="height: 20px;width: 20px;" src="{% static 'myapp/book.png' %}" alt="">
-            </a>
-            {% else %}
-            <a href="{% url 'bookmarkt' pk=t.id %}">
-                <img style="height: 20px;width: 20px;" src="{% static 'myapp/unbook.png' %}" alt="">
-
-            </a>
-            
-            {% endif %}
-        </div>
-        
+        </div>      
         {% endif %}
     </div>
 </div>

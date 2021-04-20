@@ -17,11 +17,7 @@
                 <span class="input-group-text" id="basic-addon1">{{form.year.label}}</span>
                 {{form.year}}
             </div>                   
-<!--            <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon2">Budget</span>
-              <input type="number">
-          </div> 
--->
+
             <input type="submit" class="btn btn-outline-primary" value="Get"> 
             <br><br>
             <div class="row">
@@ -65,7 +61,6 @@
             </div>
 
             <br>
-   <!--       <input type="submit" class="btn btn-outline-primary" value="Get">    -->
           <button type="button" class="btn btn-outline-dark" onclick="budget()">Check with budget</button>
           <p id="par">Budget list will be displayed here.</p>
         </form>    
@@ -121,8 +116,14 @@
               
 
           </div>
-    
+       <div style="margin-left: 40px; font-size: 20px; margin-top: 40px;"> 
+          <a href="#" id="downloadbut" onclick="download()">
+          <button type="button" class="btn btn-outline-dark" id="downloadbut" onclick="download()">Download budget graph as png</button>
+          </a>
+          <br><br>
+      </div> 
     </div>
+          
 </div>
 
 
@@ -131,7 +132,7 @@
 <script>
 
 var budg = [0,0,0,0,0,0,0,0,0,0,0,0]; 
-
+var myLineChartbud;
 
     var config1 = {
       type: 'pie',
@@ -221,21 +222,22 @@ var chartOptions = {
 
 
     window.onload = function() {
-      
 
       var ctx1 = document.getElementById('pie-chart1').getContext('2d');
-      window.myPie = new Chart(ctx1, config1);
+      var chart1 = new Chart(ctx1, config1);
+      window.myPie = chart1;
 
       var ctx2 = document.getElementById('pie-chart2').getContext('2d');
-      window.myPie = new Chart(ctx2, config2);
+      var chart2 = new Chart(ctx2, config2);
+      window.myPie = chart2;
 
       var ctx = document.getElementById("canvas").getContext("2d");
-      window.myBar = new Chart(ctx, {
+      var chart3 = new Chart(ctx, {
         type: "bar",
         data: barChartData,
         options: chartOptions
       });
-      
+      window.myBar = chart3;
 
       var ctx3 = document.getElementById('linechart').getContext('2d');
       var myLineChart = new Chart(ctx3, {
@@ -305,8 +307,8 @@ var chartOptions = {
           }
         });
 
-        var ctx4 = document.getElementById('linechartinc').getContext('2d');
-      var myLineChartinc = new Chart(ctx4, {
+        var ctx5 = document.getElementById('linechartinc').getContext('2d');
+      var myLineChartinc = new Chart(ctx5, {
         type: 'line',
         data: {
           labels: {{labels2|safe}},
@@ -326,7 +328,6 @@ var chartOptions = {
           }
         });
 
-
     };
 
     function budget(){
@@ -339,11 +340,11 @@ var chartOptions = {
                 budg[i] += parseInt(budghtml[i].value);
           } 
         }
-      document.getElementById("par").innerHTML = "Budget list is " + budg;
+      document.getElementById("par").innerHTML = "Budget list provided is " + budg;
 //      myLineChart.destroy();
       var ctx3 = document.getElementById('linechartbud').getContext('2d');
 
-      var myLineChart = new Chart(ctx3, {
+       myLineChartbud = new Chart(ctx3, {
         type: 'line',
         data: {
           labels: {{months|safe}},
@@ -386,9 +387,21 @@ var chartOptions = {
             maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
           }
         });
+
+        
      
       }
 
+ //     a.href = myLineChartbud.toBase64Image();
+   //     a.download = 'my_budget_chart.png';
+
+
+      function download(){
+        var a = document.getElementById('downloadbut');
+        a.href = myLineChartbud.toBase64Image();
+        a.download = 'my_budget_chart.png';
+      } 
+  
 </script>
 
 {% endblock %}

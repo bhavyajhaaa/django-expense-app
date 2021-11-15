@@ -1,32 +1,11 @@
 # ExpenseTracker
-Expense Tracker is a system which will keep a track of Income-Expense-TransferOfMoney of a user on a day to day basics, This System takes Income from user and divides in daily, weekly and monthly expense. Expense Tracker  will generate monthly report to show Income-Expense charts and how your expense are done in different categories. And shows your balance remaining.
-It will help you analize your day to day expenses and control over the expenditure.
 
+This expense tracker will allow the user to manually enter their expenses with a short description and dates and/or times, and allows them to categorize and classify them into groups such as groceries, utilities, electronics, entertainment, food, etc. The user is encouraged to update the information on a daily basis, so as to provide a complete picture of their spending habits.
 
-### Django Models:
-    1.Memo
-    2.Income
-    3.Expense
-    4.Transfer
-Okay    
+The tracker provides graphs and charts to visualise the user’s spending patterns according to days of the week, most frequented locations and categories of expenditure, apart from a weekly or monthly spending summary containing details of the overall and category-wise spending.
 
-### Features:
+The user can also set financial goals, and a monthly or weekly budget for each category in order to control their expenditure on the same, in order to meet those goals. They can also analyse the rise or fall of their expenses in that category compared to the previous month(s).
 
-    * Add Income Expense and Transfer of money with diferent categories and messages.
-    * All transactions sorted in analytical way:
-        - Daily
-            - daily expense and income with transactions.
-        - Weekly
-            - weekly expense and income.
-        - Monthly
-            - monthly expense and income.
-    * Edit and Delete your transactions 
-    * Graphical userfriendly stats on categorical expenses and monthly report with pie chart line graph and histogram with the help of js.
-    * Bookmark your important transactions
-    * Create Edit Delete memos
-        -created API to manage memo fetch requests
-    * Responsive site and interactive UI
-    * Used django-allauth and login using Google  
-    * 
-# Expense-Tracker 
+Analysis of spending patterns is presented graphically to the user in order to encourage them to pay more attention to their spending habits, as well as encourage them to save and meet their financial goals.
+
 ## Live app https://expense-tracker007.herokuapp.com/
